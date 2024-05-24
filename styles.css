@@ -11,6 +11,8 @@ h1 {
     background-color: rgb(113, 44, 249);
     color: whitesmoke;
     padding: 20px;
+    font-weight: bold;
+    font-style: italic;
 }
 
 .book-container {
@@ -22,7 +24,8 @@ h1 {
 }
 
 .add-btn {
-    font-size: 30px;
+    font-size: 40px;
+    font-weight: lighter;
     background-color: whitesmoke;
     border: none;
     display: flex;
@@ -31,4 +34,15 @@ h1 {
 }
 .add-btn:hover {
     background-color: rgb(209, 209, 209);
+}
+
+.card {
+    background-color: whitesmoke;
+    box-shadow: 10px 10px 10px;
+}
+
+.modal-body {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
