@@ -1,56 +1,59 @@
 const form = document.getElementById('add-form');
 const library = document.querySelector('#book-container');
 
+let read = false;
 const myLibrary = [];
 
 form.addEventListener('submit', (event)=> {
     event.preventDefault();
-    addBookToLibrary()
-    form.reset()  
-    displayBooks()
+    addBookToLibrary();
+    form.reset();  
+    displayBooks();
 })
 
-function Book(image, title, author, pages, read) {
+function Book(title, author, pages) {
     // the constructor...
-    this.image = image;
     this.title = title;
     this.author = author;
     this.pages = pages;
-    this.read = read;
 }
 
 function addBookToLibrary() {
     // do stuff here
-    const image = document.getElementById('image').value;
     const title = document.getElementById('title').value;
     const author = document.getElementById('author').value;
     const pages = document.getElementById('pages').value;
-    const read = document.getElementById('checkbox').checked;
 
-    const addedBook = new Book(image, title, author, pages, read);
+    const addedBook = new Book(title, author, pages);
     myLibrary.push(addedBook);
-    console.log(myLibrary)
-  
 }
 
 function displayBooks() {
-    library.innerHTML = '';
-    myLibrary.forEach((book)=> {
+        library.innerHTML = '';
+        myLibrary.forEach((book, index)=> {
         const div = document.createElement('div');
         div.className = 'card';
         div.style.width = '18rem';
 
         div.innerHTML = 
         `
-        <img src="${book.image}" class="card-img-top" alt="#">
         <div class="card-body">
-          <h5 class="card-title">${book.title}</h5>
-          <p class="card-text"><strong>Author:</strong> ${book.author}</p>
-          <p class="card-text"><strong>Pages:</strong> ${book.pages}</p>
-          <p class="card-text">${book.read}</p>
-          <a href="#" class="btn btn-primary">Remove</a>
+            <h5 class="card-title">${book.title}</h5>
+            <p class="card-subtitle mb-2 text-body-secondary"><strong>Author:</strong> ${book.author}</p>
+            <p class="card-text"><strong>Page(s):</strong> ${book.pages}</p>
+            <button class="btn btn-danger" onclick="remove(${index})">Remove</button>
+            <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+                <input class="btn-check" type="checkbox" id="${book.title}" autocomplete="off">
+                <label class="btn btn-outline-success" for="${book.title}">Read</label>
+            </div>
         </div>
         `
         library.appendChild(div);
     })
 }
+
+function remove(index) {
+    myLibrary.splice(index, 1);
+    displayBooks()
+}
+
